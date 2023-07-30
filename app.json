@@ -2,7 +2,7 @@
   "expo": {
     "name": "ikuradon",
     "description": "ikuradon - Mastodon Client App",
-    "slug": "potproject-ikuradon",
+    "slug": "swampy",
     "version": "3.99.5",
     "platforms": [
       "android",
@@ -32,7 +32,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "2121d830-8f19-11e7-8104-4764ee54fc79"
+        "projectId": "91e9415d-02af-4be3-959d-c515b0f9dbaa"
       }
     },
     "runtimeVersion": {
@@ -40,6 +40,7 @@
     },
     "updates": {
       "url": "https://u.expo.dev/2121d830-8f19-11e7-8104-4764ee54fc79"
-    }
+    },
+    "owner": "proton2"
   }
 }
