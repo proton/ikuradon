@@ -1,11 +1,11 @@
-import React, { useContext,  }                from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { FontAwesome }                        from "@expo/vector-icons";
+import React, { useContext,  }                from 'react'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { FontAwesome }                        from '@expo/vector-icons'
 
-import { ThemeContext } from "react-native-elements";
+import { ThemeContext } from 'react-native-elements'
 
 export default function TimelineTootButton({ enabled, onPress, loading }){
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext)
   return (
     <View>
       {enabled &&
@@ -18,7 +18,7 @@ export default function TimelineTootButton({ enabled, onPress, loading }){
             </TouchableOpacity>
       }
     </View>
-  );
+  )
 }
 const styles = StyleSheet.create({
   view: {
@@ -27,4 +27,4 @@ const styles = StyleSheet.create({
     paddingLeft: 12,
     paddingRight: 4
   }
-});
+})

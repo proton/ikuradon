@@ -1,10 +1,10 @@
-import * as ConfigActionTypes from "../actions/actiontypes/config";
+import * as ConfigActionTypes from '../actions/actiontypes/config'
 
-import * as Storage       from "../util/storage";
-import * as CONST_Storage from "../constants/storage";
-import { createReducer }  from "@reduxjs/toolkit";
+import * as Storage       from '../util/storage'
+import * as CONST_Storage from '../constants/storage'
+import { createReducer }  from '@reduxjs/toolkit'
 
-import * as Updates from "expo-updates";
+import * as Updates from 'expo-updates'
 
 export const initialState = {
   backgroundImage: null,
@@ -17,7 +17,7 @@ export const initialState = {
     notifications: false,
   },
 
-  theme: "default",
+  theme: 'default',
   fontSize: {
     userName: 16,
     userNameEmoji: 16,
@@ -26,30 +26,30 @@ export const initialState = {
     text: 16,
     emoji: 16,
   }
-};
+}
 
 export default createReducer(initialState, (builder) => {
   builder
     .addCase(ConfigActionTypes.SET_BACKGROUNDIMAGE, (state, action) => {
-      state.backgroundImage = action.backgroundImage;
+      state.backgroundImage = action.backgroundImage
     })
     .addCase(ConfigActionTypes.DELETE_BACKGROUNDIMAGE, (state, _action) => {
-      state.backgroundImage = null;
+      state.backgroundImage = null
     })
     .addCase(ConfigActionTypes.INVISIBLE_SETTING, (state, action) => {
-      state.invisible = { ...state.invisible, ...action.invisible };
+      state.invisible = { ...state.invisible, ...action.invisible }
     })
     .addCase(ConfigActionTypes.CHANGE_THEME, (state, action) => {
-      state.theme = action.theme;
+      state.theme = action.theme
     })
     .addCase(ConfigActionTypes.CONFIG_LOAD, (state, action) => {
-      return { ...initialState, ...action.config };
+      return { ...initialState, ...action.config }
     })
     .addCase(ConfigActionTypes.CONFIG_RESET, (state, _action) => {
-      return initialState;
+      return initialState
     })
     .addCase(ConfigActionTypes.CHANGE_FONTSIZE, (state, action) => {
-      state.fontSize = { ...state.fontSize, ...action.fontSize };
+      state.fontSize = { ...state.fontSize, ...action.fontSize }
     })
     .addMatcher(
       ({ type }) => type === ConfigActionTypes.SET_BACKGROUNDIMAGE ||
@@ -66,13 +66,13 @@ export default createReducer(initialState, (builder) => {
           if (action.type === ConfigActionTypes.CHANGE_THEME) {
             Updates.reloadAsync().catch(
               (e) => {
-                console.log(e);
+                console.log(e)
               }
-            );
+            )
           }
         }
-        );
-        return state;
+        )
+        return state
       }
-    );
-});
+    )
+})

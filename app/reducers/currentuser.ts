@@ -1,7 +1,7 @@
-import * as CurrentUserActionTypes from "../actions/actiontypes/currentuser";
-import { createReducer }           from "@reduxjs/toolkit";
-import { Entity }                  from "megalodon";
-import { sns }                     from "../constants/sns";
+import * as CurrentUserActionTypes from '../actions/actiontypes/currentuser'
+import { createReducer }           from '@reduxjs/toolkit'
+import { Entity }                  from 'megalodon'
+import { sns }                     from '../constants/sns'
 
 type currentUser = {
     sns: sns|null
@@ -15,11 +15,11 @@ type currentUser = {
 export const initialState: currentUser = {
   sns: null,
   user_credentials: null,
-  domain: "",
-  access_token: "",
+  domain: '',
+  access_token: '',
   notification_count: 0,
   instance: null,
-};
+}
 
 export default createReducer(initialState, (builder) => {
   builder
@@ -31,15 +31,15 @@ export default createReducer(initialState, (builder) => {
         access_token: action.access_token,
         notification_count: 0,
         instance: action.instance,
-      };
+      }
     })
     .addCase(CurrentUserActionTypes.DELETED_CURRENT_USER, (state, action) => {
-      return initialState;
+      return initialState
     })
     .addCase(CurrentUserActionTypes.NOTIFICATION_PUSH, (state, action) => {
-      state.notification_count += 1;
+      state.notification_count += 1
     })
     .addCase(CurrentUserActionTypes.NOTIFICATION_CLEAR, (state, action) => {
-      state.notification_count = 0;
-    });
-});
+      state.notification_count = 0
+    })
+})

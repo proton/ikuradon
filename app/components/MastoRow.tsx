@@ -1,30 +1,30 @@
-import React, { useContext, useMemo, memo }         from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
-import { Image }                                    from "react-native-elements";
-import PropTypes                                    from "prop-types";
-import { FontAwesome }                              from "@expo/vector-icons";
-import { dateFormat, emojisArrayToObject }          from "../util/parser";
-import CustomEmoji                                  from "react-native-customemoji";
+import React, { useContext, useMemo, memo }         from 'react'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { Image }                                    from 'react-native-elements'
+import PropTypes                                    from 'prop-types'
+import { FontAwesome }                              from '@expo/vector-icons'
+import { dateFormat, emojisArrayToObject }          from '../util/parser'
+import CustomEmoji                                  from 'react-native-customemoji'
 
-import t from "../services/I18n";
+import t from '../services/I18n'
 
-import Reply     from "./item/Reply";
-import Boost     from "./item/Boost";
-import Favourite from "./item/Favourite";
-import Bookmark  from "./item/Bookmark";
-import Reaction  from "./item/Reaction";
-import Action    from "./item/Action";
+import Reply     from './item/Reply'
+import Boost     from './item/Boost'
+import Favourite from './item/Favourite'
+import Bookmark  from './item/Bookmark'
+import Reaction  from './item/Reaction'
+import Action    from './item/Action'
 
-import { ThemeContext } from "react-native-elements";
-import MastoRowBody     from "./MastoRowBody";
-import MastoRowImage    from "./MastoRowImage";
-import MastoRowPoll     from "./MastoRowPoll";
-import OpenSticker      from "./OpenSticker";
+import { ThemeContext } from 'react-native-elements'
+import MastoRowBody     from './MastoRowBody'
+import MastoRowImage    from './MastoRowImage'
+import MastoRowPoll     from './MastoRowPoll'
+import OpenSticker      from './OpenSticker'
 
-import { open as openUrl }                             from "../util/url";
-import { icon }                                        from "../constants/visibility";
-import { getMisskeyCustomEmojiReaction, isReactioned } from "../util/reactions";
-import { accountURLMigrate, urlMigrate }               from "../util/account";
+import { open as openUrl }                             from '../util/url'
+import { icon }                                        from '../constants/visibility'
+import { getMisskeyCustomEmojiReaction, isReactioned } from '../util/reactions'
+import { accountURLMigrate, urlMigrate }               from '../util/account'
 
 const MastoRow = ({ item, current, actions, background, fontSize, openStickerData = {} }) => {
   // Toot data
@@ -50,27 +50,27 @@ const MastoRow = ({ item, current, actions, background, fontSize, openStickerDat
     poll,
     emoji_reactions,
     quote,
-  } = item;
-    // current
-  let { user_credentials, domain, access_token, notification_count, instance, sns } = current;
+  } = item
+  // current
+  let { user_credentials, domain, access_token, notification_count, instance, sns } = current
   // Actions
   let { ReplyAction, BoostAction, FavouriteAction, BookmarkAction, ReactionAction, HideAction, DeleteAction, OpenImageViewerAction, CloseImageViewerAction, TouchAction } =
-        actions;
-    // Theme
-  const { theme } = useContext(ThemeContext);
+        actions
+  // Theme
+  const { theme } = useContext(ThemeContext)
   // reply to you?
-  let replyToYou = in_reply_to_account_id === user_credentials.id;
+  let replyToYou = in_reply_to_account_id === user_credentials.id
   // reblog
-  let reblogFlag = false;
-  let rebloggedName = "";
-  let reblogedImage = null;
-  let reblogEmojis = [];
-  let tootID = id;
+  let reblogFlag = false
+  let rebloggedName = ''
+  let reblogedImage = null
+  let reblogEmojis = []
+  let tootID = id
   if (reblog && !quote) {
-    reblogFlag = true;
-    rebloggedName = account.display_name !== "" ? account.display_name : account.username;
-    reblogedImage = account.avatar;
-    reblogEmojis = account.emojis;
+    reblogFlag = true
+    rebloggedName = account.display_name !== '' ? account.display_name : account.username
+    reblogedImage = account.avatar
+    reblogEmojis = account.emojis
     tootID = reblog.id;
     ({
       created_at,
@@ -91,10 +91,10 @@ const MastoRow = ({ item, current, actions, background, fontSize, openStickerDat
       emojis,
       poll,
       quote,
-    } = reblog);
+    } = reblog)
   }
-  const reactioned = sns === "misskey" && isReactioned(emoji_reactions);
-  let myself = user_credentials && user_credentials.acct === account.acct;
+  const reactioned = sns === 'misskey' && isReactioned(emoji_reactions)
+  let myself = user_credentials && user_credentials.acct === account.acct
   return (
     <View key={id} style={[styles.container, { backgroundColor: !background ? theme.customColors.charBackground : null }]}>
       <TouchableOpacity delayPressIn={150} onPress={() => TouchAction(tootID)}>
@@ -102,12 +102,12 @@ const MastoRow = ({ item, current, actions, background, fontSize, openStickerDat
                     useMemo(
                       () => (
                         <View style={styles.isReplyContainer}>
-                          <View style={{ width: 68, borderWidth: 0, alignItems: "flex-end" }}>
-                            <FontAwesome name={"retweet"} size={fontSize.text+2} color={theme.customColors.item.boost} style={{ marginRight: 5 }} />
+                          <View style={{ width: 68, borderWidth: 0, alignItems: 'flex-end' }}>
+                            <FontAwesome name={'retweet'} size={fontSize.text+2} color={theme.customColors.item.boost} style={{ marginRight: 5 }} />
                           </View>
-                          <CustomEmoji emojiStyle={{ width: fontSize.userNameEmoji, height: fontSize.userNameEmoji, resizeMode: "contain" }} style={{ flex: 1 }} emojis={emojisArrayToObject(reblogEmojis)}>
+                          <CustomEmoji emojiStyle={{ width: fontSize.userNameEmoji, height: fontSize.userNameEmoji, resizeMode: 'contain' }} style={{ flex: 1 }} emojis={emojisArrayToObject(reblogEmojis)}>
                             <Text style={{ color: theme.colors.grey0, fontSize: fontSize.text }} ellipsizeMode="tail" numberOfLines={1}>
-                              {rebloggedName + t("notifications.boosted")}{" "}
+                              {rebloggedName + t('notifications.boosted')}{' '}
                             </Text>
                           </CustomEmoji>
                         </View>
@@ -116,13 +116,13 @@ const MastoRow = ({ item, current, actions, background, fontSize, openStickerDat
                     )}
         <View style={styles.date}>
           <Text style={[styles.dateText, { fontSize: fontSize.dateText }, { color: theme.colors.grey2 }]}>
-            { in_reply_to_account_id && <FontAwesome name={"reply"} size={fontSize.dateText} color={replyToYou ? theme.colors.primary : theme.colors.grey0} style={{ marginRight: 5 }} />}
-            {poll && <FontAwesome name={"comments"} size={fontSize.dateText} color={theme.colors.grey0} style={{ marginRight: 5 }} />}
+            { in_reply_to_account_id && <FontAwesome name={'reply'} size={fontSize.dateText} color={replyToYou ? theme.colors.primary : theme.colors.grey0} style={{ marginRight: 5 }} />}
+            {poll && <FontAwesome name={'comments'} size={fontSize.dateText} color={theme.colors.grey0} style={{ marginRight: 5 }} />}
             {sensitive && (
-              <FontAwesome name={"exclamation"} size={fontSize.dateText} color={theme.colors.grey0} style={{ marginRight: 5 }} />
-            )}{" "}
+              <FontAwesome name={'exclamation'} size={fontSize.dateText} color={theme.colors.grey0} style={{ marginRight: 5 }} />
+            )}{' '}
             <FontAwesome name={icon[visibility]} size={fontSize.dateText} color={theme.colors.grey0} style={{ marginRight: 5 }} />
-            {" " + dateFormat(created_at)}
+            {' ' + dateFormat(created_at)}
           </Text>
         </View>
         {Object.keys(openStickerData).length !== 0 && <OpenSticker acct={account.acct} currentDomain={domain} data={openStickerData} />}
@@ -144,10 +144,10 @@ const MastoRow = ({ item, current, actions, background, fontSize, openStickerDat
             {useMemo(
               () => (
                 <View style={styles.userDetails}>
-                  <CustomEmoji emojiStyle={{ width: fontSize.userNameEmoji, height: fontSize.userNameEmoji, resizeMode: "contain" }} emojis={emojisArrayToObject(account.emojis)}>
+                  <CustomEmoji emojiStyle={{ width: fontSize.userNameEmoji, height: fontSize.userNameEmoji, resizeMode: 'contain' }} emojis={emojisArrayToObject(account.emojis)}>
                     <Text style={[styles.userName, { fontSize: fontSize.userName }, { color: theme.customColors.char }]} ellipsizeMode="tail" numberOfLines={1}>
-                      {account.display_name !== "" ? account.display_name : account.username}
-                      <Text style={[styles.userHandleAndTime, { fontSize: fontSize.userName }, { color: theme.colors.grey2 }]}>{" @" + account.acct}</Text>
+                      {account.display_name !== '' ? account.display_name : account.username}
+                      <Text style={[styles.userHandleAndTime, { fontSize: fontSize.userName }, { color: theme.colors.grey2 }]}>{' @' + account.acct}</Text>
                     </Text>
                   </CustomEmoji>
                 </View>
@@ -192,11 +192,11 @@ const MastoRow = ({ item, current, actions, background, fontSize, openStickerDat
               <View style={styles.reactionsContainer}>
                 {
                   emoji_reactions.map((emoji_reaction) => {
-                    const { count, emoji, me, url } = getMisskeyCustomEmojiReaction(emoji_reaction, emojis);
+                    const { count, emoji, me, url } = getMisskeyCustomEmojiReaction(emoji_reaction, emojis)
                     return <TouchableOpacity
-                      key={id + "_" + emoji_reaction.name + "_reaction"}
+                      key={id + '_' + emoji_reaction.name + '_reaction'}
                       style={styles.reaction}
-                      onPress={() => { emoji.indexOf("@") === -1 && !reactioned && ReactionAction(id, id, true, emoji)}}
+                      onPress={() => { emoji.indexOf('@') === -1 && !reactioned && ReactionAction(id, id, true, emoji)}}
                     >
                       {url &&
                                             <Image style={styles.reactionImg} source={{ uri: url }} />
@@ -206,7 +206,7 @@ const MastoRow = ({ item, current, actions, background, fontSize, openStickerDat
                       }
                       <Text style={[{ color: me ? theme.colors.primary : theme.customColors.char }, { fontSize: fontSize.text }]}>{count}</Text>
                     </TouchableOpacity>
-                    ;
+                    
                   })
                 }
               </View>
@@ -215,7 +215,7 @@ const MastoRow = ({ item, current, actions, background, fontSize, openStickerDat
               <Reply
                 id={id}
                 tootid={tootID}
-                user={account.display_name !== "" ? account.display_name : account.username}
+                user={account.display_name !== '' ? account.display_name : account.username}
                 acct={account.acct}
                 image={account.avatar}
                 body={content}
@@ -229,13 +229,13 @@ const MastoRow = ({ item, current, actions, background, fontSize, openStickerDat
                 count={0}
                 style={styles.itemFlex}
                 onBoost={BoostAction}
-                disabled={visibility === "private" || visibility === "direct"}
+                disabled={visibility === 'private' || visibility === 'direct'}
               />
               <Favourite id={id} tootid={tootID} favourited={favourited} count={0} style={styles.itemFlex} onFavourite={FavouriteAction} />
-              { sns !== "misskey" && sns !== "bluesky" &&
+              { sns !== 'misskey' && sns !== 'bluesky' &&
                             <Bookmark id={id} tootid={tootID} bookmarked={bookmarked} style={styles.itemFlex} onBookmark={BookmarkAction} />
               }
-              { sns === "misskey" && 
+              { sns === 'misskey' && 
                             <Reaction id={id} tootid={tootID} reactioned={reactioned} style={styles.itemFlex} onReaction={ReactionAction} />
               }
               <Action
@@ -244,7 +244,7 @@ const MastoRow = ({ item, current, actions, background, fontSize, openStickerDat
                 style={styles.itemFlex}
                 url={urlMigrate(sns, domain, url, tootID)}
                 account_url={accountURLMigrate(sns, domain, account.url)}
-                user={account.display_name !== "" ? account.display_name : account.username}
+                user={account.display_name !== '' ? account.display_name : account.username}
                 acct={account.acct}
                 image={account.avatar}
                 body={content}
@@ -258,8 +258,8 @@ const MastoRow = ({ item, current, actions, background, fontSize, openStickerDat
         </View>
       </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
 MastoRow.propTypes = {
   navigation: PropTypes.any,
   item: PropTypes.shape({
@@ -300,7 +300,7 @@ MastoRow.propTypes = {
   actions: PropTypes.object,
   background: PropTypes.bool,
   openStickerData: PropTypes.object,
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
   },
   isReplyContainer: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
     borderWidth: 0,
     marginTop: 2,
   },
@@ -318,24 +318,24 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   dateText: {
-    textAlign: "right",
+    textAlign: 'right',
   },
   innerContainer: {
     flex: 1,
-    borderColor: "green",
-    flexDirection: "row",
+    borderColor: 'green',
+    flexDirection: 'row',
     borderWidth: 0,
-    height: "auto",
+    height: 'auto',
   },
   photoContainer: {
     width: 68,
-    borderColor: "yellow",
-    flexDirection: "column",
+    borderColor: 'yellow',
+    flexDirection: 'column',
     borderWidth: 0,
   },
   innerPhotoContainer: {
     height: 50,
-    alignItems: "center",
+    alignItems: 'center',
   },
   photo: {
     width: 50,
@@ -351,18 +351,18 @@ const styles = StyleSheet.create({
   },
   info: {
     flex: 1,
-    borderColor: "yellow",
-    flexDirection: "column",
+    borderColor: 'yellow',
+    flexDirection: 'column',
     borderWidth: 0,
   },
   userDetails: {
     borderWidth: 0,
   },
   userName: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   userHandleAndTime: {
-    fontWeight: "normal",
+    fontWeight: 'normal',
   },
   tootContainer: {
     flex: 1,
@@ -375,17 +375,17 @@ const styles = StyleSheet.create({
   },
   tootActionsContainer: {
     flex: 1,
-    borderColor: "blue",
+    borderColor: 'blue',
     borderWidth: 0,
     marginTop: 5,
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingBottom: 5,
   },
   item: {
     flex: 1,
     marginTop: 10,
     marginBottom: 5,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   itemFlex: {
     flex: 1,
@@ -393,14 +393,14 @@ const styles = StyleSheet.create({
   },
   reactionsContainer: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
     borderWidth: 0,
     marginTop: 6
   },
   reaction:{
     marginLeft: 6,
     marginRight: 6,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   reactionText:{
     marginRight: 2,
@@ -409,19 +409,19 @@ const styles = StyleSheet.create({
     width:18,
     height:18,
     marginRight: 5,
-    alignSelf: "center"
+    alignSelf: 'center'
   },
   quote:{
     flex: 1,
     borderWidth: 1,
-    borderColor: "#e0e0e0",
+    borderColor: '#e0e0e0',
     borderRadius: 6,
     marginTop: 5,
     marginBottom: 10,
     marginRight: 10,
     padding: 2,
   }
-});
+})
 export default memo(MastoRow, (p, n) => {
   // TODO: boostもmemoしたい
   return (
@@ -433,5 +433,5 @@ export default memo(MastoRow, (p, n) => {
         p.item.emojis === n.item.emojis &&
         p.item.emoji_reactions === n.item.emoji_reactions &&
         p.item.reblog === null
-  );
-});
+  )
+})

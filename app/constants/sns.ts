@@ -1,1 +1,1 @@
-export type sns = "mastodon" | "pleroma" | "misskey" | "bluesky";
+export type sns = 'mastodon' | 'pleroma' | 'misskey' | 'bluesky';

@@ -1,11 +1,11 @@
-import React, { useContext }                  from "react";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
-import { FontAwesome }                        from "@expo/vector-icons";
+import React, { useContext }                  from 'react'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import { FontAwesome }                        from '@expo/vector-icons'
 
-import { ThemeContext } from "react-native-elements";
+import { ThemeContext } from 'react-native-elements'
 
 export default function TimelineLeftHeader({ isBack, onPress }){
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext)
   return (
     <View>
       <TouchableOpacity onPress={() => onPress()} style={styles.view}>
@@ -16,7 +16,7 @@ export default function TimelineLeftHeader({ isBack, onPress }){
         }
       </TouchableOpacity>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -25,4 +25,4 @@ const styles = StyleSheet.create({
     margin: 4,
     paddingLeft: 8,
   }
-});
+})

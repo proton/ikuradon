@@ -1,17 +1,17 @@
-import React                               from "react";
-import { Text, View, StyleSheet }          from "react-native";
-import ImageView                           from "react-native-image-viewing";
-import { useDispatch, useSelector }        from "react-redux";
-import { close as CloseImageViewerAction } from "../actions/actioncreators/imageviewer";
-import { RootState }                       from "../reducers";
+import React                               from 'react'
+import { Text, View, StyleSheet }          from 'react-native'
+import ImageView                           from 'react-native-image-viewing'
+import { useDispatch, useSelector }        from 'react-redux'
+import { close as CloseImageViewerAction } from '../actions/actioncreators/imageviewer'
+import { RootState }                       from '../reducers'
 
 const reducerSelector = (state: RootState) => ({
   imageviewer: state.imageViewerReducer,
-});
+})
 
 function ImageViewerScreen() {
-  const dispatch = useDispatch();
-  const { imageviewer } = useSelector(reducerSelector);
+  const dispatch = useDispatch()
+  const { imageviewer } = useSelector(reducerSelector)
   return (
     imageviewer.visible && <ImageView
       images={imageviewer.data}
@@ -19,7 +19,7 @@ function ImageViewerScreen() {
       visible={imageviewer.visible}
       swipeToCloseEnabled={true}
       onRequestClose={() => {
-        dispatch(CloseImageViewerAction());
+        dispatch(CloseImageViewerAction())
       }}
       FooterComponent={({ imageIndex }) => (
         <View style={styles.imageFooter}>
@@ -27,7 +27,7 @@ function ImageViewerScreen() {
         </View>
       )}
     />
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   background: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
   },
   loading: {
     paddingTop: 10,
@@ -44,14 +44,14 @@ const styles = StyleSheet.create({
   },
   imageFooter: {
     height: 120,
-    backgroundColor: "#00000077",
-    alignItems: "center",
+    backgroundColor: '#00000077',
+    alignItems: 'center',
     paddingTop: 20,
   },
   imageFooterText: {
     fontSize: 17,
-    color: "#FFF",
+    color: '#FFF',
   },
-});
+})
 
-export default ImageViewerScreen;
+export default ImageViewerScreen

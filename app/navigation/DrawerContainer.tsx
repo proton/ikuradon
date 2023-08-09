@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react'
 import {
   StyleSheet,
   Text,
@@ -6,55 +6,55 @@ import {
   Image,
   TouchableOpacity,
   ScrollView
-} from "react-native";
-import { useSelector, useDispatch } from "react-redux";
-import CustomEmoji                  from "react-native-customemoji";
-import { emojisArrayToObject }      from "../util/parser";
+} from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import CustomEmoji                  from 'react-native-customemoji'
+import { emojisArrayToObject }      from '../util/parser'
 
-import { ThemeContext } from "react-native-elements";
-import { Divider }      from "react-native-elements";
+import { ThemeContext } from 'react-native-elements'
+import { Divider }      from 'react-native-elements'
 
-import { FontAwesome } from "@expo/vector-icons";
-import t               from "../services/I18n";
+import { FontAwesome } from '@expo/vector-icons'
+import t               from '../services/I18n'
 
-import * as RouterName from "../constants/RouterName";
-import UserList        from "../components/UserList";
+import * as RouterName from '../constants/RouterName'
+import UserList        from '../components/UserList'
 
-import { loginSelectAccounts, accountChangeWithDelete } from "../actions/actioncreators/login";
-import { RootState }                                    from "../reducers";
-const CurrentUserReducerSelector = (state: RootState) => state.currentUserReducer;
-const ConfigReducerSelector = (state: RootState) => state.configReducer;
+import { loginSelectAccounts, accountChangeWithDelete } from '../actions/actioncreators/login'
+import { RootState }                                    from '../reducers'
+const CurrentUserReducerSelector = (state: RootState) => state.currentUserReducer
+const ConfigReducerSelector = (state: RootState) => state.configReducer
 
 export default function DrawerContainer({ navigation }){
-  const dispatch = useDispatch();
-  const { theme } = useContext(ThemeContext);
-  const current = useSelector(CurrentUserReducerSelector);
-  const config = useSelector(ConfigReducerSelector);
-  const { user_credentials, domain, sns } = current;
-  const { fontSize } = config;
+  const dispatch = useDispatch()
+  const { theme } = useContext(ThemeContext)
+  const current = useSelector(CurrentUserReducerSelector)
+  const config = useSelector(ConfigReducerSelector)
+  const { user_credentials, domain, sns } = current
+  const { fontSize } = config
   return (
     <View style={[styles.container, { backgroundColor:theme.customColors.charBackground }]}>
       <View style={styles.profile}>
         { user_credentials &&
                 <Image
-                  onPress={() => navigation.navigate("Profile")}
+                  onPress={() => navigation.navigate('Profile')}
                   source={{ uri: user_credentials.avatar }}
                   style={[{ borderColor: theme.colors.primary }, styles.photo]}/>
         }
-        <CustomEmoji emojiStyle={{ width: config.fontSize.userNameEmoji, height: config.fontSize.userNameEmoji, resizeMode: "contain" }} emojis={user_credentials && user_credentials.emojis ? emojisArrayToObject(user_credentials.emojis) : []}>
+        <CustomEmoji emojiStyle={{ width: config.fontSize.userNameEmoji, height: config.fontSize.userNameEmoji, resizeMode: 'contain' }} emojis={user_credentials && user_credentials.emojis ? emojisArrayToObject(user_credentials.emojis) : []}>
           <Text style={[styles.userName, { fontSize: fontSize.userName }, { color: theme.customColors.char }]}>{user_credentials && user_credentials.display_name}</Text>
         </CustomEmoji>
-        <Text style={[styles.userHandle, { color: theme.colors.grey0 }]}>{user_credentials && "@"+user_credentials.username}</Text>
+        <Text style={[styles.userHandle, { color: theme.colors.grey0 }]}>{user_credentials && '@'+user_credentials.username}</Text>
         <Text style={[styles.domain, { color: theme.colors.grey0 }]}>{domain}</Text>
         <View>
           <Text style={[styles.postsCount, { color: theme.customColors.char }]}>{user_credentials && user_credentials.statuses_count.toLocaleString()}
-            <Text style={[styles.postsText, { color: theme.colors.grey0 }]}> {t("drawer_posts")}</Text>
+            <Text style={[styles.postsText, { color: theme.colors.grey0 }]}> {t('drawer_posts')}</Text>
           </Text>
           <Text style={[styles.followingCount, { color: theme.customColors.char }]}>{user_credentials && user_credentials.following_count.toLocaleString()}
-            <Text style={[styles.followingText, { color: theme.colors.grey0 }]}> {t("drawer_following")}</Text>
+            <Text style={[styles.followingText, { color: theme.colors.grey0 }]}> {t('drawer_following')}</Text>
           </Text>
           <Text style={[styles.followersCount, { color: theme.customColors.char }]}>{user_credentials && user_credentials.followers_count.toLocaleString()}
-            <Text style={[styles.followersText, { color: theme.colors.grey0 }]}> {t("drawer_follower")}</Text>
+            <Text style={[styles.followersText, { color: theme.colors.grey0 }]}> {t('drawer_follower')}</Text>
           </Text>
         </View>
       </View>
@@ -71,50 +71,50 @@ export default function DrawerContainer({ navigation }){
                 </TouchableOpacity>
                 */ }
         <TouchableOpacity style={styles.fixedList} onPress={()=>{
-          navigation.closeDrawer();
-          navigation.navigate(RouterName.Search);
+          navigation.closeDrawer()
+          navigation.navigate(RouterName.Search)
         }} >
           <View>
             <FontAwesome style={styles.icon} name='search' size={fontSize.text + 4} color={theme.colors.grey0}/>
-            <Text style={[{ color: theme.customColors.char }, { fontSize: fontSize.text }, styles.text]}> {t("search_title")} </Text>
+            <Text style={[{ color: theme.customColors.char }, { fontSize: fontSize.text }, styles.text]}> {t('search_title')} </Text>
           </View>
         </TouchableOpacity>
-        { sns !== "misskey" && sns !== "bluesky" &&
+        { sns !== 'misskey' && sns !== 'bluesky' &&
                 <TouchableOpacity style={styles.fixedList} onPress={()=>{
-                  navigation.closeDrawer();
-                  navigation.navigate(RouterName.Bookmarks);
+                  navigation.closeDrawer()
+                  navigation.navigate(RouterName.Bookmarks)
                 }} >
                   <View>
                     <FontAwesome style={styles.icon} name='bookmark' size={fontSize.text + 4} color={theme.colors.grey0}/>
-                    <Text style={[{ color: theme.customColors.char }, { fontSize: fontSize.text }, styles.text]}> {t("bookmarks_title")} </Text>
+                    <Text style={[{ color: theme.customColors.char }, { fontSize: fontSize.text }, styles.text]}> {t('bookmarks_title')} </Text>
                   </View>
                 </TouchableOpacity>
         }
         <TouchableOpacity style={styles.fixedList} onPress={()=>{
-          navigation.closeDrawer();
-          navigation.navigate(RouterName.Favourites);
+          navigation.closeDrawer()
+          navigation.navigate(RouterName.Favourites)
         }} >
           <View>
             <FontAwesome style={styles.icon} name='star' size={fontSize.text + 4} color={theme.colors.grey0}/>
-            <Text style={[{ color: theme.customColors.char }, { fontSize: fontSize.text }, styles.text]}> {t("favourited_title")} </Text>
+            <Text style={[{ color: theme.customColors.char }, { fontSize: fontSize.text }, styles.text]}> {t('favourited_title')} </Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.fixedList} onPress={()=>{
-          navigation.closeDrawer();
-          navigation.navigate(RouterName.Settings);
+          navigation.closeDrawer()
+          navigation.navigate(RouterName.Settings)
         }} >
           <View>
             <FontAwesome style={styles.icon} name='cog' size={fontSize.text + 4} color={theme.colors.grey0}/>
-            <Text style={[{ color: theme.customColors.char }, { fontSize: fontSize.text }, styles.text]}> {t("settings_title")} </Text>
+            <Text style={[{ color: theme.customColors.char }, { fontSize: fontSize.text }, styles.text]}> {t('settings_title')} </Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.fixedList} onPress={()=>{
-          navigation.closeDrawer();
-          navigation.navigate(RouterName.Login);
+          navigation.closeDrawer()
+          navigation.navigate(RouterName.Login)
         }} >
           <View>
             <FontAwesome style={styles.icon} name='user' size={fontSize.text + 2} color={theme.colors.grey1}/>
-            <Text style={[{ color: theme.colors.grey1 }, { fontSize: fontSize.text }, styles.text]}> {t("drawer_addaccount")} </Text>
+            <Text style={[{ color: theme.colors.grey1 }, { fontSize: fontSize.text }, styles.text]}> {t('drawer_addaccount')} </Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -127,7 +127,7 @@ export default function DrawerContainer({ navigation }){
         />
       </ScrollView>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -144,8 +144,8 @@ const styles = StyleSheet.create({
     borderWidth: 0
   },
   text: {
-    position: "absolute",
-    left: "20%",
+    position: 'absolute',
+    left: '20%',
     top: 10
   },
   profile:{
@@ -162,46 +162,46 @@ const styles = StyleSheet.create({
   },
   userName:{
     marginTop: 10,
-    fontWeight: "bold"
+    fontWeight: 'bold'
   },
   userHandle:{
     marginTop: 5,
-    fontWeight: "300"
+    fontWeight: '300'
   },
   domain:{
     marginTop: 2,
-    fontWeight: "300"
+    fontWeight: '300'
   },
   postsCount:{
-    position: "absolute",
+    position: 'absolute',
     left: 0,
     top: 10,
-    fontWeight: "bold"
+    fontWeight: 'bold'
   },
   postsText:{
-    fontWeight: "300"
+    fontWeight: '300'
   },
   followingCount:{
-    position: "absolute",
+    position: 'absolute',
     left: 0,
     top: 40,
-    fontWeight: "bold"
+    fontWeight: 'bold'
   },
   followingText:{
-    fontWeight: "300"
+    fontWeight: '300'
   },
   followersCount:{
-    position: "absolute",
+    position: 'absolute',
     right: 40,
     top: 40,
-    fontWeight: "bold"
+    fontWeight: 'bold'
   },
   followersText:{
-    fontWeight: "300"
+    fontWeight: '300'
   },
   icon:{
-    position: "absolute",
+    position: 'absolute',
     left: 20,
     top: 10
   }
-});
+})

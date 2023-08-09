@@ -1,34 +1,34 @@
-import React, { useContext, useEffect, useState }                                         from "react";
-import { StyleSheet, View, FlatList, RefreshControl, ActivityIndicator, ImageBackground } from "react-native";
-import { useDispatch, useSelector }                                                       from "react-redux";
-import { Divider }                                                                        from "react-native-elements";
+import React, { useContext, useEffect, useState }                                         from 'react'
+import { StyleSheet, View, FlatList, RefreshControl, ActivityIndicator, ImageBackground } from 'react-native'
+import { useDispatch, useSelector }                                                       from 'react-redux'
+import { Divider }                                                                        from 'react-native-elements'
 
-import { hide as HideAction, deleting as DeleteAction }                                                                                        from "../actions/actioncreators/main";
-import { boost as BoostAction, favourite as FavouriteAction, bookmark as BookmarkAction, follow as FollowAction, reaction as ReactionAction  } from "../actions/actioncreators/mastorow";
-import { getDetail as GetDetailAction }                                                                                                        from "../actions/actioncreators/detail";
+import { hide as HideAction, deleting as DeleteAction }                                                                                        from '../actions/actioncreators/main'
+import { boost as BoostAction, favourite as FavouriteAction, bookmark as BookmarkAction, follow as FollowAction, reaction as ReactionAction  } from '../actions/actioncreators/mastorow'
+import { getDetail as GetDetailAction }                                                                                                        from '../actions/actioncreators/detail'
 
-import NavigationService from "../services/NavigationService";
-import * as RouterName   from "../constants/RouterName";
+import NavigationService from '../services/NavigationService'
+import * as RouterName   from '../constants/RouterName'
 
-import { ThemeContext }                                                   from "react-native-elements";
-import NotificationsRow                                                   from "./NotificationsRow";
-import { oldLoadingTimeline, newLoadingTimeline }                         from "../actions/actioncreators/main";
-import { notificationParse }                                              from "../util/notification";
-import { open as OpenImageViewerAction, close as CloseImageViewerAction } from "../actions/actioncreators/imageviewer";
-import { RootState }                                                      from "../reducers";
+import { ThemeContext }                                                   from 'react-native-elements'
+import NotificationsRow                                                   from './NotificationsRow'
+import { oldLoadingTimeline, newLoadingTimeline }                         from '../actions/actioncreators/main'
+import { notificationParse }                                              from '../util/notification'
+import { open as OpenImageViewerAction, close as CloseImageViewerAction } from '../actions/actioncreators/imageviewer'
+import { RootState }                                                      from '../reducers'
 
 const CurrentUserReducerSelector = (state: RootState) => ({
   current: state.currentUserReducer,
   main: state.mainReducer,
   config: state.configReducer,
-});
+})
 
 function NotificationsList({ type }) {
-  const dispatch = useDispatch();
-  const { theme } = useContext(ThemeContext);
-  const [init, setInit] = useState(false);
-  const { current, main, config } = useSelector(CurrentUserReducerSelector);
-  const listdata = main[type];
+  const dispatch = useDispatch()
+  const { theme } = useContext(ThemeContext)
+  const [init, setInit] = useState(false)
+  const { current, main, config } = useSelector(CurrentUserReducerSelector)
+  const listdata = main[type]
   const actions = {
     ReplyAction: (id, tootid, user, acct, image, body) => NavigationService.navigate({ name: RouterName.Toot, params: { id, tootid, user, acct, image, body } }),
 
@@ -45,14 +45,14 @@ function NotificationsList({ type }) {
     CloseImageViewerAction: () => {dispatch(CloseImageViewerAction())},
 
     TouchAction: (id) => {dispatch(GetDetailAction(id))},
-  };
+  }
   useEffect(() => {
     if (!init && listdata && listdata.data instanceof Array && listdata.data.length < 1) {
-      setInit(true);
-      dispatch(newLoadingTimeline(type, listdata.maxId, true));
+      setInit(true)
+      dispatch(newLoadingTimeline(type, listdata.maxId, true))
     }
-  }, []);
-  const newNotifications = notificationParse(listdata.data);
+  }, [])
+  const newNotifications = notificationParse(listdata.data)
   return (
     <View style={styles.container}>
       <ImageBackground imageStyle={{ opacity:0.3 }} source={config.backgroundImage ? { uri: config.backgroundImage } : null} style={[styles.background, { backgroundColor: theme.customColors.charBackground }]}>
@@ -78,13 +78,13 @@ function NotificationsList({ type }) {
           }
           onEndReached={() => {
             if (init && listdata && listdata.data instanceof Array && listdata.data.length >= 10 && !listdata.loading){
-              dispatch(oldLoadingTimeline(type, listdata.minId));
+              dispatch(oldLoadingTimeline(type, listdata.minId))
             }
           }}
         />
       </ImageBackground>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -92,15 +92,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   background: {
-    backgroundColor: "#ffffff",
-    width: "100%",
-    height: "100%"
+    backgroundColor: '#ffffff',
+    width: '100%',
+    height: '100%'
   },
   loading: {
     paddingTop: 10,
     paddingBottom: 10
   }
-});
+})
 
 
-export default NotificationsList;
+export default NotificationsList

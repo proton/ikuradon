@@ -1,69 +1,69 @@
-import React                            from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
-import { useSelector }                  from "react-redux";
-import MastoList                        from "../components/MastoList";
-import TootButton                       from "../components/TootButton";
-import TimelineLeftHeader               from "../components/TimelineLeftHeader";
-import TimelineCenterHeader             from "../components/TimelineCenterHeader";
-import TimelineStreamingButton          from "../components/TimelineStreamingButton";
-import t                                from "../services/I18n";
+import React                            from 'react'
+import { ScrollView, StyleSheet, View } from 'react-native'
+import { useSelector }                  from 'react-redux'
+import MastoList                        from '../components/MastoList'
+import TootButton                       from '../components/TootButton'
+import TimelineLeftHeader               from '../components/TimelineLeftHeader'
+import TimelineCenterHeader             from '../components/TimelineCenterHeader'
+import TimelineStreamingButton          from '../components/TimelineStreamingButton'
+import t                                from '../services/I18n'
 
-import { Header }        from "react-native-elements";
-import NotificationsList from "../components/NotificationsList";
+import { Header }        from 'react-native-elements'
+import NotificationsList from '../components/NotificationsList'
 
-import * as RouterName from "../constants/RouterName";
-import { RootState }   from "../reducers";
+import * as RouterName from '../constants/RouterName'
+import { RootState }   from '../reducers'
 
 const reducerSelector = (state: RootState) => ({
   current: state.currentUserReducer,
   streaming: state.streamingReducer,
   config: state.configReducer
-});
+})
 
 export default function TimelineDeckNavigator({ route, navigation }) {
-  const { current, streaming, config } = useSelector(reducerSelector);
-  const { invisible } = config;
+  const { current, streaming, config } = useSelector(reducerSelector)
+  const { invisible } = config
   return (
     <View style={styles.container}>
       <Header
         leftComponent={<TimelineLeftHeader isBack={false} onPress={navigation.openDrawer} />}
-        centerComponent={<TimelineCenterHeader fixedTitle={""} onPress={navigation.openDrawer} current={current} />}
+        centerComponent={<TimelineCenterHeader fixedTitle={''} onPress={navigation.openDrawer} current={current} />}
       />
       <ScrollView horizontal={true}>
         { !invisible.home &&
                     <View style={styles.screen}>
                       <Header
-                        centerComponent={<TimelineCenterHeader fixedTitle={t("navigation_home")} current={current} />}
-                        rightComponent={<TimelineStreamingButton type={"home"}/>}
+                        centerComponent={<TimelineCenterHeader fixedTitle={t('navigation_home')} current={current} />}
+                        rightComponent={<TimelineStreamingButton type={'home'}/>}
                       />
-                      <MastoList type={"home"} />
+                      <MastoList type={'home'} />
                     </View>
         }
         { !invisible.local &&
                 <View style={styles.screen}>
                   <Header
-                    centerComponent={<TimelineCenterHeader fixedTitle={t("navigation_local")} current={current} />}
-                    rightComponent={<TimelineStreamingButton type={"local"}/>}
+                    centerComponent={<TimelineCenterHeader fixedTitle={t('navigation_local')} current={current} />}
+                    rightComponent={<TimelineStreamingButton type={'local'}/>}
                   />
-                  <MastoList type={"local"} />
+                  <MastoList type={'local'} />
                 </View>
         }
         { !invisible.federal &&
                 <View style={styles.screen}>
                   <Header
-                    centerComponent={<TimelineCenterHeader fixedTitle={t("navigation_federal")} current={current} />}
-                    rightComponent={<TimelineStreamingButton type={"federal"}/>}
+                    centerComponent={<TimelineCenterHeader fixedTitle={t('navigation_federal')} current={current} />}
+                    rightComponent={<TimelineStreamingButton type={'federal'}/>}
                   />
-                  <MastoList type={"federal"} />
+                  <MastoList type={'federal'} />
                 </View>
         }
         { !invisible.notifications &&
                 <View style={styles.screen}>
                   <Header
-                    centerComponent={<TimelineCenterHeader fixedTitle={t("navigation_notifications")} current={current} />}
+                    centerComponent={<TimelineCenterHeader fixedTitle={t('navigation_notifications')} current={current} />}
                     rightComponent={null}
                   />
-                  <NotificationsList type={"notifications"} />
+                  <NotificationsList type={'notifications'} />
                 </View>
         }
       </ScrollView>
@@ -71,7 +71,7 @@ export default function TimelineDeckNavigator({ route, navigation }) {
         <TootButton onPress={() => navigation.navigate(RouterName.Toot)} />
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -79,11 +79,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   tootButton: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 5,
     right: 5,
   },
   screen: {
     width: 380,
   }
-});
+})

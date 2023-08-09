@@ -1,60 +1,60 @@
-import * as Config      from "../actiontypes/config";
-import * as Permission  from "../../util/permission";
-import * as ImagePicker from "expo-image-picker";
-import * as Session     from "../../util/session";
-import DropDownHolder   from "../../services/DropDownHolder";
-import t                from "../../services/I18n";
+import * as Config      from '../actiontypes/config'
+import * as Permission  from '../../util/permission'
+import * as ImagePicker from 'expo-image-picker'
+import * as Session     from '../../util/session'
+import DropDownHolder   from '../../services/DropDownHolder'
+import t                from '../../services/I18n'
 
-import * as RouterName   from "../../constants/RouterName";
-import NavigationService from "../../services/NavigationService";
-import * as Main         from "../actiontypes/main";
-import * as Streaming    from "../actiontypes/streaming";
+import * as RouterName   from '../../constants/RouterName'
+import NavigationService from '../../services/NavigationService'
+import * as Main         from '../actiontypes/main'
+import * as Streaming    from '../actiontypes/streaming'
 
 export function allClear() {
   return async dispatch => {
-    await dispatch({ type: Config.CONFIG_RESET });
-    await dispatch({ type: Streaming.STREAM_ALLSTOP });
-    await Session.deleteAll();
-    await dispatch({ type: Main.ALLCLEAR_MASTOLIST });
-    NavigationService.resetAndNavigate({ name: RouterName.Login });
-  };
+    await dispatch({ type: Config.CONFIG_RESET })
+    await dispatch({ type: Streaming.STREAM_ALLSTOP })
+    await Session.deleteAll()
+    await dispatch({ type: Main.ALLCLEAR_MASTOLIST })
+    NavigationService.resetAndNavigate({ name: RouterName.Login })
+  }
 }
 
 export function setBackground() {
   return async dispatch => {
     try {
-      await Permission.getBeforeAskMediaLibrary();
-      let fileData = await ImagePicker.launchImageLibraryAsync();
+      await Permission.getBeforeAskMediaLibrary()
+      let fileData = await ImagePicker.launchImageLibraryAsync()
       if (!fileData || !fileData.uri || fileData.canceled) {
-        return;
+        return
       }
-      dispatch({ type: Config.SET_BACKGROUNDIMAGE, backgroundImage: fileData.uri });
-      NavigationService.resetAndNavigate({ name: RouterName.Main });
+      dispatch({ type: Config.SET_BACKGROUNDIMAGE, backgroundImage: fileData.uri })
+      NavigationService.resetAndNavigate({ name: RouterName.Main })
     } catch (e) {
-      DropDownHolder.error(t("messages.network_error"), e.message);
+      DropDownHolder.error(t('messages.network_error'), e.message)
     }
-  };
+  }
 }
 
 export function setBackgroundClear() {
-  NavigationService.resetAndNavigate({ name: RouterName.Main });
-  return { type: Config.DELETE_BACKGROUNDIMAGE };
+  NavigationService.resetAndNavigate({ name: RouterName.Main })
+  return { type: Config.DELETE_BACKGROUNDIMAGE }
 }
 
 export function setInvisibleTimeline(type, value) {
-  let invisible = {};
-  invisible[type] = value;
-  return { type: Config.INVISIBLE_SETTING, invisible };
+  let invisible = {}
+  invisible[type] = value
+  return { type: Config.INVISIBLE_SETTING, invisible }
 }
 
 export function setTheme(value){
-  return { type: Config.CHANGE_THEME, theme: value }; 
+  return { type: Config.CHANGE_THEME, theme: value } 
 }
 
 export function setFontSize(value){
   return async dispatch => {
-    dispatch({ type: Config.CHANGE_FONTSIZE, fontSize: value });
-    NavigationService.resetAndNavigate({ name: RouterName.Main });
-    DropDownHolder.success(t("setting_fontsize_success"));
-  };
+    dispatch({ type: Config.CHANGE_FONTSIZE, fontSize: value })
+    NavigationService.resetAndNavigate({ name: RouterName.Main })
+    DropDownHolder.success(t('setting_fontsize_success'))
+  }
 }

@@ -1,21 +1,21 @@
 export default class DropDownHolder {
-  static dropDownAlertRef;
+  static dropDownAlertRef
   static setDropDown(dropDownAlertRef) {
-    this.dropDownAlertRef = dropDownAlertRef;
+    this.dropDownAlertRef = dropDownAlertRef
   }
   static getDropDown() {
-    return this.dropDownAlertRef;
+    return this.dropDownAlertRef
   }
 
-  static success(title, message = ""){
-    this.dropDownAlertRef.alertWithType("success", title, message);
+  static success(title, message = ''){
+    this.dropDownAlertRef.alertWithType('success', title, message)
   }
 
-  static info(title, message = ""){
-    this.dropDownAlertRef.alertWithType("info", title, message);
+  static info(title, message = ''){
+    this.dropDownAlertRef.alertWithType('info', title, message)
   }
 
-  static error(title, message = ""){
-    this.dropDownAlertRef.alertWithType("error", title, message);
+  static error(title, message = ''){
+    this.dropDownAlertRef.alertWithType('error', title, message)
   }
 }

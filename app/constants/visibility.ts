@@ -1,6 +1,6 @@
 export const icon = {
-  public: "globe",
-  unlisted: "unlock",
-  private: "lock",
-  direct: "envelope",
-};
+  public: 'globe',
+  unlisted: 'unlock',
+  private: 'lock',
+  direct: 'envelope',
+}

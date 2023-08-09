@@ -1,9 +1,9 @@
-import React, { useContext }  from "react";
-import { View, StyleSheet }   from "react-native";
-import { Icon, ThemeContext } from "react-native-elements";
+import React, { useContext }  from 'react'
+import { View, StyleSheet }   from 'react-native'
+import { Icon, ThemeContext } from 'react-native-elements'
 
 export default function TootButton({ onPress }){
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext)
   return (
     <View style={styles.shadow}>
       <Icon
@@ -16,12 +16,12 @@ export default function TootButton({ onPress }){
         onPress={onPress}
       />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   shadow: {
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 5,
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
         
     elevation: 10,
   }
-});
+})

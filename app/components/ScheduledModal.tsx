@@ -1,34 +1,34 @@
-import React, { useState }  from "react";
-import { View, StyleSheet } from "react-native";
+import React, { useState }  from 'react'
+import { View, StyleSheet } from 'react-native'
 
-import * as Localization from "expo-localization";
-import { Button }        from "react-native-elements";
-import DateTimePicker    from "@react-native-community/datetimepicker";
-import t                 from "../services/I18n";
+import * as Localization from 'expo-localization'
+import { Button }        from 'react-native-elements'
+import DateTimePicker    from '@react-native-community/datetimepicker'
+import t                 from '../services/I18n'
   
 export default function ScheduledModal({ onSelect }){
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date())
   const onChange = (event, selectedDate) => {
-    setDate(selectedDate);
-  };
+    setDate(selectedDate)
+  }
 
   return (
     <View style={styles.container}>
       <DateTimePicker
         testID="dateTimePicker"
         value={date}
-        display={"spinner"}
-        mode={"datetime"}
+        display={'spinner'}
+        mode={'datetime'}
         is24Hour={true}
         onChange={onChange}
         locale={Localization.locale}
       />
       <View style={styles.buttonGroup}>
-        <Button style={styles.button} onPress={() => onSelect(date.toISOString())} title={t("global_ok")} />
-        <Button style={styles.button} onPress={() => onSelect(null)} title={t("global_cancel")} />
+        <Button style={styles.button} onPress={() => onSelect(date.toISOString())} title={t('global_ok')} />
+        <Button style={styles.button} onPress={() => onSelect(null)} title={t('global_cancel')} />
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
     height: 280,
   },
   buttonGroup: {
-    flexDirection: "row",
-    alignSelf: "center",
+    flexDirection: 'row',
+    alignSelf: 'center',
   },
   button: {
     width: 120,
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
     marginRight: 5,
     marginBottom: 10,
   },
-});
+})

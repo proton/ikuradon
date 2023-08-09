@@ -1,25 +1,25 @@
 export default {
   customColors:{
-    charBackground:"#FFFFFF",
-    char: "#000000",
-    charReverse: "#FFFFFF",
-    primaryComplementary: "#00CCFF",
-    primaryBackground: "#FFFFFF",
+    charBackground:'#FFFFFF',
+    char: '#000000',
+    charReverse: '#FFFFFF',
+    primaryComplementary: '#00CCFF',
+    primaryBackground: '#FFFFFF',
     item: {
-      boost: "#2b90d9",
-      favourite: "#ffd27d",
-      bookmark: "#4c6ef5",
-      none: "#8899a6"
+      boost: '#2b90d9',
+      favourite: '#ffd27d',
+      bookmark: '#4c6ef5',
+      none: '#8899a6'
     },
-    tootButton: "#FF5500",
-    link: "#1b95e0",
+    tootButton: '#FF5500',
+    link: '#1b95e0',
   },
   colors: {
-    primary: "#FF3300",
+    primary: '#FF3300',
     //secondary;
-    grey0: "#657786",
-    grey1: "#2b90d9",
-    grey2: "#8899a6",
+    grey0: '#657786',
+    grey1: '#2b90d9',
+    grey2: '#8899a6',
     //grey3;
     //grey4;
     //grey5;
@@ -47,4 +47,4 @@ export default {
     }
   }
       
-};
+}

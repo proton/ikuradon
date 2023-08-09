@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { View, FlatList, StyleSheet } from "react-native";
-import { ListItem }                   from "react-native-elements";
-import { getDraftAll }                from "../util/draft";
+import React, { useEffect, useState } from 'react'
+import { View, FlatList, StyleSheet } from 'react-native'
+import { ListItem }                   from 'react-native-elements'
+import { getDraftAll }                from '../util/draft'
   
 export default function DraftModal({ onSelect }){
-  let [drafts, useDrafts] = useState([]);
+  let [drafts, useDrafts] = useState([])
   useEffect(() => {
-    getDraftAll().then((drafts) => useDrafts(drafts));
-  }, []);
+    getDraftAll().then((drafts) => useDrafts(drafts))
+  }, [])
   return (
     <View style={styles.container}>
       <FlatList
@@ -27,7 +27,7 @@ export default function DraftModal({ onSelect }){
         )}
       />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
     width: 320,
     height: 320,
   }
-});
+})

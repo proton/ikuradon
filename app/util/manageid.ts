@@ -5,16 +5,16 @@ export function getFirstAndLastID(data):{minId: string|number|null, maxId: strin
       return {
         minId: data[data.length - 1].cursor,
         maxId: null
-      };
+      }
     }
 
     return {
       minId: data[data.length - 1].id,
       maxId: data[0].id,
-    };
+    }
   }
   return {
     minId: null,
     maxId: null,
-  };
+  }
 }

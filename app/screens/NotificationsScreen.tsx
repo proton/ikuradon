@@ -1,27 +1,27 @@
-import React, { useContext } from "react";
-import { StyleSheet, View }  from "react-native";
-import { useSelector }       from "react-redux";
-import NotificationsList     from "../components/NotificationsList";
-import TootButton            from "../components/TootButton";
-import TimelineLeftHeader    from "../components/TimelineLeftHeader";
-import TimelineCenterHeader  from "../components/TimelineCenterHeader";
+import React, { useContext } from 'react'
+import { StyleSheet, View }  from 'react-native'
+import { useSelector }       from 'react-redux'
+import NotificationsList     from '../components/NotificationsList'
+import TootButton            from '../components/TootButton'
+import TimelineLeftHeader    from '../components/TimelineLeftHeader'
+import TimelineCenterHeader  from '../components/TimelineCenterHeader'
 
-import { Header, ThemeContext } from "react-native-elements";
+import { Header, ThemeContext } from 'react-native-elements'
 
-const CurrentUserReducerSelector = (state: RootState) => state.currentUserReducer;
+const CurrentUserReducerSelector = (state: RootState) => state.currentUserReducer
 
-import * as RouterName from "../constants/RouterName";
-import { RootState }   from "../reducers";
+import * as RouterName from '../constants/RouterName'
+import { RootState }   from '../reducers'
 
 function NotificationsScreen({ navigation }) {
-  const type = "notifications";
-  const current = useSelector(CurrentUserReducerSelector);
-  useContext(ThemeContext);
+  const type = 'notifications'
+  const current = useSelector(CurrentUserReducerSelector)
+  useContext(ThemeContext)
   return (
     <View style={styles.container}>
       <Header
         leftComponent={<TimelineLeftHeader isBack={false} onPress={navigation.openDrawer} />}
-        centerComponent={<TimelineCenterHeader fixedTitle={""} onPress={navigation.openDrawer} current={current}/>}
+        centerComponent={<TimelineCenterHeader fixedTitle={''} onPress={navigation.openDrawer} current={current}/>}
         rightComponent={null}
       />
       <NotificationsList type={type}/>
@@ -29,7 +29,7 @@ function NotificationsScreen({ navigation }) {
         <TootButton onPress={() => navigation.navigate(RouterName.Toot)}/>
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -37,10 +37,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   tootButton: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 5,
     right: 5,
   }
-});
+})
 
-export default NotificationsScreen;
+export default NotificationsScreen

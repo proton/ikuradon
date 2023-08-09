@@ -1,34 +1,34 @@
-import React, { useContext }    from "react";
-import { StyleSheet, View }     from "react-native";
-import { Header, ThemeContext } from "react-native-elements";
-import { useSelector }          from "react-redux";
-import t                        from "../services/I18n";
+import React, { useContext }    from 'react'
+import { StyleSheet, View }     from 'react-native'
+import { Header, ThemeContext } from 'react-native-elements'
+import { useSelector }          from 'react-redux'
+import t                        from '../services/I18n'
 
-import TimelineLeftHeader   from "../components/TimelineLeftHeader";
-import TimelineCenterHeader from "../components/TimelineCenterHeader";
-import Search               from "../components/Search";
-import { RootState }        from "../reducers";
+import TimelineLeftHeader   from '../components/TimelineLeftHeader'
+import TimelineCenterHeader from '../components/TimelineCenterHeader'
+import Search               from '../components/Search'
+import { RootState }        from '../reducers'
 
-const CurrentUserReducerSelector = (state: RootState) => state.currentUserReducer;
+const CurrentUserReducerSelector = (state: RootState) => state.currentUserReducer
 
 function SearchScreen({ navigation }) {
-  const current = useSelector(CurrentUserReducerSelector);
-  const { theme } = useContext(ThemeContext);
+  const current = useSelector(CurrentUserReducerSelector)
+  const { theme } = useContext(ThemeContext)
   return (
     <View style={styles.container}>
       <Header
         leftComponent={<TimelineLeftHeader isBack={true} onPress={navigation.goBack} />}
-        centerComponent={<TimelineCenterHeader fixedTitle={t("search_title")} onPress={navigation.openDrawer} current={current}/>}
+        centerComponent={<TimelineCenterHeader fixedTitle={t('search_title')} onPress={navigation.openDrawer} current={current}/>}
       />
       <Search current={current} />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-});
+})
 
-export default SearchScreen;
+export default SearchScreen

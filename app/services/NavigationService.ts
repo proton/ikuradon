@@ -1,10 +1,10 @@
 //React Navigation without Redux integration
-import { CommonActions } from "@react-navigation/native";
+import { CommonActions } from '@react-navigation/native'
 
-let _navigator;
+let _navigator
 
 function setTopLevelNavigator(navigatorRef) {
-  _navigator = navigatorRef;
+  _navigator = navigatorRef
 }
 
 // get Dispatcher
@@ -16,12 +16,12 @@ function setTopLevelNavigator(navigatorRef) {
 //    })
 // );
 function getDispatch() {
-  return _navigator.dispatch;
+  return _navigator.dispatch
 }
 
 // Back
 function back() {
-  _navigator.dispatch(CommonActions.goBack());
+  _navigator.dispatch(CommonActions.goBack())
 }
 
 // Navigate
@@ -32,7 +32,7 @@ function navigate({ name, key, params }) {
       key,
       params
     })
-  );
+  )
 }
 
 // All Reset And Navigation
@@ -42,7 +42,7 @@ function resetAndNavigate({ name }) {
       index: 0,
       routes: [{ name }]
     })
-  );
+  )
 }
 
 export default {
@@ -51,4 +51,4 @@ export default {
   resetAndNavigate,
   getDispatch,
   setTopLevelNavigator
-};
+}

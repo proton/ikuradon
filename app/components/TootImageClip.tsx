@@ -1,15 +1,15 @@
-import React, { useState, useContext }                                     from "react";
-import { ImageBackground, StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
-import { FontAwesome }                                                     from "@expo/vector-icons";
-import { ThemeContext }                                                    from "react-native-elements";
-import { upload }                                                          from "../services/Media";
+import React, { useState, useContext }                                     from 'react'
+import { ImageBackground, StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native'
+import { FontAwesome }                                                     from '@expo/vector-icons'
+import { ThemeContext }                                                    from 'react-native-elements'
+import { upload }                                                          from '../services/Media'
 
-const MAX_UPLOAD = 4;
+const MAX_UPLOAD = 4
 
 export default function TootImageClip({ callbackMediaAttachments }) {
-  const { theme } = useContext(ThemeContext);
-  const [mediaAttachments, useMediaAttachments] = useState([]);
-  const [isUploading, useUploading] = useState(false);
+  const { theme } = useContext(ThemeContext)
+  const [mediaAttachments, useMediaAttachments] = useState([])
+  const [isUploading, useUploading] = useState(false)
   return (
     <ScrollView horizontal={true}>
       <View style={[{ backgroundColor: theme.colors.charBackground }, styles.imageForm]}>
@@ -22,7 +22,7 @@ export default function TootImageClip({ callbackMediaAttachments }) {
               imageStyle={[{ borderColor: theme.colors.grey0 }, styles.imageRow]}
             >
               <TouchableOpacity onPress={() => mediaRemove(isUploading, callbackMediaAttachments, mediaAttachments, useMediaAttachments, media)}>
-                <FontAwesome name={"times-circle"} size={26} color={theme.colors.grey1} />
+                <FontAwesome name={'times-circle'} size={26} color={theme.colors.grey1} />
               </TouchableOpacity>
             </ImageBackground>
           )
@@ -35,36 +35,36 @@ export default function TootImageClip({ callbackMediaAttachments }) {
                       onPress={() => mediaUpload(isUploading, callbackMediaAttachments, useUploading, mediaAttachments, useMediaAttachments)} 
                       style={[{ borderColor: theme.colors.grey0 }, styles.backgroundRow, styles.imageRow]}
                     >
-                      <FontAwesome name={isUploading ? "spinner" : "plus-circle"} size={26} color={theme.colors.grey1} />
+                      <FontAwesome name={isUploading ? 'spinner' : 'plus-circle'} size={26} color={theme.colors.grey1} />
                     </TouchableOpacity>
                     
         }
       </View>
     </ScrollView>
-  );
+  )
 }
 
 async function mediaUpload(isUploading, callbackMediaAttachments, useUploading, mediaAttachments, useMediaAttachments){
   if (isUploading){
-    return;
+    return
   }
-  useUploading(true);
-  let res = await upload();
+  useUploading(true)
+  let res = await upload()
   if (res !== null){
-    const newMedia = mediaAttachments.concat(res);
-    useMediaAttachments(newMedia);
-    callbackMediaAttachments(newMedia);
+    const newMedia = mediaAttachments.concat(res)
+    useMediaAttachments(newMedia)
+    callbackMediaAttachments(newMedia)
   }
-  useUploading(false);
+  useUploading(false)
 }
 
 function mediaRemove(isUploading, callbackMediaAttachments, mediaAttachments, useMediaAttachments, media){
   if (isUploading){
-    return;
+    return
   }
-  let removedMediaAttachments = mediaAttachments.filter(item => item !== media);
-  useMediaAttachments(removedMediaAttachments);
-  callbackMediaAttachments(removedMediaAttachments);
+  let removedMediaAttachments = mediaAttachments.filter(item => item !== media)
+  useMediaAttachments(removedMediaAttachments)
+  callbackMediaAttachments(removedMediaAttachments)
 }
 
 const styles = StyleSheet.create({
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   background: {
-    backgroundColor: "#ffffff",
+    backgroundColor: '#ffffff',
     marginLeft: 5,
     marginRight: 5,
     borderRadius: 10,
@@ -82,22 +82,22 @@ const styles = StyleSheet.create({
   },
   imageForm: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   backgroundRow:{
     width: 70,
     marginLeft: 5,
     marginRight: 5,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   imageRow:{
     width: 70,
     borderRadius: 10,
     borderWidth: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
-});
+})

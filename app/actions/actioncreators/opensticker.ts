@@ -1,29 +1,29 @@
-import * as OpenSticker from "../actiontypes/opensticker";
-import Networking       from "../../services/Networking";
+import * as OpenSticker from '../actiontypes/opensticker'
+import Networking       from '../../services/Networking'
 
-import DropDownHolder from "../../services/DropDownHolder";
+import DropDownHolder from '../../services/DropDownHolder'
 
 export function on(server){
   return async dispatch => {
     try {
-      let data = await Networking.openStickerGetJSON(server);
+      let data = await Networking.openStickerGetJSON(server)
       // validate
-      if (typeof data.data !== "object" || typeof data.updated !== "string" || typeof data.default !== "object"){
-        throw new Error("Validate Failure.");
+      if (typeof data.data !== 'object' || typeof data.updated !== 'string' || typeof data.default !== 'object'){
+        throw new Error('Validate Failure.')
       }
-      let serverData = serverDataParse(data);
-      DropDownHolder.success("JSON Download Success!", data.data.length + " server counts."); 
-      return dispatch({ type: OpenSticker.OPENSTICKER_ON, server, data: serverData });
+      let serverData = serverDataParse(data)
+      DropDownHolder.success('JSON Download Success!', data.data.length + ' server counts.') 
+      return dispatch({ type: OpenSticker.OPENSTICKER_ON, server, data: serverData })
     } catch (e){
       // fail
-      DropDownHolder.error("JSON Download Failure!", e.message); 
-      return dispatch({ type: OpenSticker.OPENSTICKER_OFF });
+      DropDownHolder.error('JSON Download Failure!', e.message) 
+      return dispatch({ type: OpenSticker.OPENSTICKER_OFF })
     }
-  };
+  }
 }
 
 export function off(){
-  return { type: OpenSticker.OPENSTICKER_OFF };
+  return { type: OpenSticker.OPENSTICKER_OFF }
 }
 
 function serverDataParse(json){
@@ -89,15 +89,15 @@ function serverDataParse(json){
         },
     };
     */
-  let serverData = {};
+  let serverData = {}
   for (let d of json.data){
-    serverData[d.domain] = d;
+    serverData[d.domain] = d
     if (d.bgColor === undefined || d.bgColor === null){
-      serverData[d.domain].bgColor = json.default[d.type].bgColor;
+      serverData[d.domain].bgColor = json.default[d.type].bgColor
     }
     if (d.fontColor === undefined || d.fontColor === null){
-      serverData[d.domain].fontColor = json.default[d.type].fontColor;
+      serverData[d.domain].fontColor = json.default[d.type].fontColor
     }
   }
-  return serverData;
+  return serverData
 }

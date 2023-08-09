@@ -1,79 +1,79 @@
-import React, { useContext, useEffect, useState }                                         from "react";
-import { StyleSheet, View, FlatList, RefreshControl, ActivityIndicator, ImageBackground } from "react-native";
-import { useDispatch, useSelector }                                                       from "react-redux";
-import { Divider }                                                                        from "react-native-elements";
+import React, { useContext, useEffect, useState }                                         from 'react'
+import { StyleSheet, View, FlatList, RefreshControl, ActivityIndicator, ImageBackground } from 'react-native'
+import { useDispatch, useSelector }                                                       from 'react-redux'
+import { Divider }                                                                        from 'react-native-elements'
 
-import MastoRow                                                                                                                               from "../components/MastoRow";
-import { hide as HideAction, deleting as DeleteAction }                                                                                       from "../actions/actioncreators/main";
-import { boost as BoostAction, favourite as FavouriteAction, bookmark as BookmarkAction, follow as FollowAction, reaction as ReactionAction } from "../actions/actioncreators/mastorow";
-import { open as OpenImageViewerAction, close as CloseImageViewerAction }                                                                     from "../actions/actioncreators/imageviewer";
-import { getDetail as GetDetailAction }                                                                                                       from "../actions/actioncreators/detail";
-import * as RouterName                                                                                                                        from "../constants/RouterName";
+import MastoRow                                                                                                                               from '../components/MastoRow'
+import { hide as HideAction, deleting as DeleteAction }                                                                                       from '../actions/actioncreators/main'
+import { boost as BoostAction, favourite as FavouriteAction, bookmark as BookmarkAction, follow as FollowAction, reaction as ReactionAction } from '../actions/actioncreators/mastorow'
+import { open as OpenImageViewerAction, close as CloseImageViewerAction }                                                                     from '../actions/actioncreators/imageviewer'
+import { getDetail as GetDetailAction }                                                                                                       from '../actions/actioncreators/detail'
+import * as RouterName                                                                                                                        from '../constants/RouterName'
 
-import { ThemeContext }                           from "react-native-elements";
-import NavigationService                          from "../services/NavigationService";
-import { oldLoadingTimeline, newLoadingTimeline } from "../actions/actioncreators/main";
-import { RootState }                              from "../reducers";
+import { ThemeContext }                           from 'react-native-elements'
+import NavigationService                          from '../services/NavigationService'
+import { oldLoadingTimeline, newLoadingTimeline } from '../actions/actioncreators/main'
+import { RootState }                              from '../reducers'
 const reducerSelector = (state: RootState) => ({
   current: state.currentUserReducer,
   main: state.mainReducer,
   streaming: state.streamingReducer,
   config: state.configReducer,
   openSticker: state.openStickerReducer,
-});
+})
 
-const REFRESH_TIME = 300;
+const REFRESH_TIME = 300
 
 function MastoList({ navigation, type }) {
-  const dispatch = useDispatch();
-  const { theme } = useContext(ThemeContext);
-  const [init, setInit] = useState(false);
-  const { current, main, streaming, config, openSticker } = useSelector(reducerSelector);
-  const { data: openStickerData } = openSticker;
-  const listdata = main[type];
-  const streamingType = streaming[type];
+  const dispatch = useDispatch()
+  const { theme } = useContext(ThemeContext)
+  const [init, setInit] = useState(false)
+  const { current, main, streaming, config, openSticker } = useSelector(reducerSelector)
+  const { data: openStickerData } = openSticker
+  const listdata = main[type]
+  const streamingType = streaming[type]
   useEffect(() => {
     if (!init && listdata && listdata.data instanceof Array && listdata.data.length < 1) {
-      setInit(true);
-      dispatch(newLoadingTimeline(type, listdata.maxId, true));
+      setInit(true)
+      dispatch(newLoadingTimeline(type, listdata.maxId, true))
     }
-  }, []);
+  }, [])
   const actions = {
     ReplyAction: (id, tootid, user, acct, image, body) =>
       NavigationService.navigate({ name: RouterName.Toot, params: { id, tootid, user, acct, image, body } }),
 
     BoostAction: (id, tootid, boosted) => {
-      dispatch(BoostAction(id, tootid, boosted));
+      dispatch(BoostAction(id, tootid, boosted))
     },
     FavouriteAction: (id, tootid, favourited) => {
-      dispatch(FavouriteAction(id, tootid, favourited));
+      dispatch(FavouriteAction(id, tootid, favourited))
     },
     BookmarkAction: (id, tootid, bookmarked) => {
-      dispatch(BookmarkAction(id, tootid, bookmarked));
+      dispatch(BookmarkAction(id, tootid, bookmarked))
     },
     ReactionAction: (id, tootid, reactioned, emoji) => {
-      dispatch(ReactionAction(id, tootid, reactioned, emoji));
+      dispatch(ReactionAction(id, tootid, reactioned, emoji))
     },
     HideAction: (id) => {
-      dispatch(HideAction(id));
+      dispatch(HideAction(id))
     },
     DeleteAction: (id) => {
-      dispatch(DeleteAction(id));
+      dispatch(DeleteAction(id))
     },
     FollowAction: (id, followed) => {
-      dispatch(FollowAction(id, followed));
+      dispatch(FollowAction(id, followed))
     },
     OpenImageViewerAction: (media, index) => {
-      dispatch(OpenImageViewerAction(media, index));
+      dispatch(OpenImageViewerAction(media, index))
     },
     CloseImageViewerAction: () => {
-      dispatch(CloseImageViewerAction());
+      dispatch(CloseImageViewerAction())
     },
 
     TouchAction: (id) => {
-      dispatch(GetDetailAction(id));
+      dispatch(GetDetailAction(id))
     },
-  };
+  }
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -93,13 +93,13 @@ function MastoList({ navigation, type }) {
               refreshing={listdata.refreshing}
               onRefresh={() => {
                 if (streamingType) {
-                  return;
+                  return
                 }
-                const time = Math.floor(new Date().getTime() / 1000);
+                const time = Math.floor(new Date().getTime() / 1000)
                 if (time - listdata.lastUpdate >= REFRESH_TIME) {
-                  dispatch(newLoadingTimeline(type, null, true));
+                  dispatch(newLoadingTimeline(type, null, true))
                 } else {
-                  dispatch(newLoadingTimeline(type, listdata.maxId));
+                  dispatch(newLoadingTimeline(type, listdata.maxId))
                 }
               }}
             />
@@ -126,13 +126,13 @@ function MastoList({ navigation, type }) {
           }
           onEndReached={() => {
             if (init && listdata && listdata.data instanceof Array && listdata.data.length >= 10 && !listdata.loading) {
-              dispatch(oldLoadingTimeline(type, listdata.minId));
+              dispatch(oldLoadingTimeline(type, listdata.minId))
             }
           }}
         />
       </ImageBackground>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -140,8 +140,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   background: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
   },
   loading: {
     paddingTop: 10,
@@ -149,11 +149,11 @@ const styles = StyleSheet.create({
   },
   imageFooter: {
     height: 64,
-    backgroundColor: "#00000077",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#00000077',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: 60,
   },
-});
+})
 
-export default MastoList;
+export default MastoList

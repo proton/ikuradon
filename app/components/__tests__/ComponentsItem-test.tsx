@@ -1,24 +1,24 @@
-import React      from "react";
-import { render } from "@testing-library/react-native";
+import React      from 'react'
+import { render } from '@testing-library/react-native'
 
-import theme            from "../../themes/default";
-import { ThemeContext } from "react-native-elements";
+import theme            from '../../themes/default'
+import { ThemeContext } from 'react-native-elements'
 
-import Action    from "../item/Action";
-import Bookmark  from "../item/Bookmark";
-import Boost     from "../item/Boost";
-import Favourite from "../item/Favourite";
-import Follow    from "../item/Follow";
-import Reply     from "../item/Reply";
+import Action    from '../item/Action'
+import Bookmark  from '../item/Bookmark'
+import Boost     from '../item/Boost'
+import Favourite from '../item/Favourite'
+import Follow    from '../item/Follow'
+import Reply     from '../item/Reply'
 
-import ExampleStatus  from "../../example/status";
-import ExampleAccount from "../../example/account";
-import Reaction       from "../item/Reaction";
+import ExampleStatus  from '../../example/status'
+import ExampleAccount from '../../example/account'
+import Reaction       from '../item/Reaction'
 
-jest.mock("@expo/vector-icons/build/FontAwesome", () => "FontAwesome");
-jest.mock("react-native-elements/src/icons/Icon", () => "Icon");
+jest.mock('@expo/vector-icons/build/FontAwesome', () => 'FontAwesome')
+jest.mock('react-native-elements/src/icons/Icon', () => 'Icon')
 
-it("<Action />", () => {
+it('<Action />', () => {
   const result = render(
     <ThemeContext.Provider value={{ theme }}>
       <Action
@@ -37,11 +37,11 @@ it("<Action />", () => {
         onDeleting={() => null}
       />
     </ThemeContext.Provider>
-  );
-  expect(result).toMatchSnapshot();
-});
+  )
+  expect(result).toMatchSnapshot()
+})
 
-it("<Bookmark />", () => {
+it('<Bookmark />', () => {
   const result = render(
     <ThemeContext.Provider value={{ theme }}>
       <Bookmark
@@ -52,11 +52,11 @@ it("<Bookmark />", () => {
         onBookmark={() => null}
       />
     </ThemeContext.Provider>
-  );
-  expect(result).toMatchSnapshot();
-});
+  )
+  expect(result).toMatchSnapshot()
+})
 
-it("<Boost />", () => {
+it('<Boost />', () => {
   const result = render(
     <ThemeContext.Provider value={{ theme }}>
       <Boost
@@ -69,11 +69,11 @@ it("<Boost />", () => {
         disabled={false}
       />
     </ThemeContext.Provider>
-  );
-  expect(result).toMatchSnapshot();
-});
+  )
+  expect(result).toMatchSnapshot()
+})
 
-it("<Favourite />", () => {
+it('<Favourite />', () => {
   const result = render(
     <ThemeContext.Provider value={{ theme }}>
       <Favourite
@@ -85,11 +85,11 @@ it("<Favourite />", () => {
         onFavourite={()=>null}
       />
     </ThemeContext.Provider>
-  );
-  expect(result).toMatchSnapshot();
-});
+  )
+  expect(result).toMatchSnapshot()
+})
 
-it("<Follow />", () => {
+it('<Follow />', () => {
   const result = render(
     <ThemeContext.Provider value={{ theme }}>
       <Follow
@@ -98,11 +98,11 @@ it("<Follow />", () => {
         onFollow={() => null}
       />
     </ThemeContext.Provider>
-  );
-  expect(result).toMatchSnapshot();
-});
+  )
+  expect(result).toMatchSnapshot()
+})
 
-it("<Reply />", () => {
+it('<Reply />', () => {
   const result = render(
     <ThemeContext.Provider value={{ theme }}>
       <Reply
@@ -116,11 +116,11 @@ it("<Reply />", () => {
         onReply={() => null}
       />
     </ThemeContext.Provider>
-  );
-  expect(result).toMatchSnapshot();
-});
+  )
+  expect(result).toMatchSnapshot()
+})
 
-it("<Reaction />", () => {
+it('<Reaction />', () => {
   const result = render(
     <ThemeContext.Provider value={{ theme }}>
       <Reaction
@@ -131,6 +131,6 @@ it("<Reaction />", () => {
         onReaction={() => null}
       />
     </ThemeContext.Provider>
-  );
-  expect(result).toMatchSnapshot();
-});
+  )
+  expect(result).toMatchSnapshot()
+})
