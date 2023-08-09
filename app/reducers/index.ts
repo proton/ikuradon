@@ -1,30 +1,30 @@
-import { combineReducers } from "redux";
-import appInitReducer from "./appinit";
-import mainReducer from "./main";
-import navigationReducer from "./navigation";
-import streamingReducer from "./streaming";
-import currentUserReducer from "./currentuser";
-import detailReducer from "./detail";
-import configReducer from "./config";
-import tootReducer from "./toot";
-import imageViewerReducer from "./imageviewer";
+import { combineReducers }     from "redux";
+import appInitReducer          from "./appinit";
+import mainReducer             from "./main";
+import navigationReducer       from "./navigation";
+import streamingReducer        from "./streaming";
+import currentUserReducer      from "./currentuser";
+import detailReducer           from "./detail";
+import configReducer           from "./config";
+import tootReducer             from "./toot";
+import imageViewerReducer      from "./imageviewer";
 import pushNotificationReducer from "./pushnotification";
-import openStickerReducer from "./opensticker";
+import openStickerReducer      from "./opensticker";
 // ... other reducers
 
 const rootReducer = combineReducers({
-    appInitReducer,
-    mainReducer,
-    navigationReducer,
-    streamingReducer,
-    currentUserReducer,
-    configReducer,
-    detailReducer,
-    tootReducer,
-    imageViewerReducer,
-    pushNotificationReducer,
-    openStickerReducer
-    // ... other reducers
+  appInitReducer,
+  mainReducer,
+  navigationReducer,
+  streamingReducer,
+  currentUserReducer,
+  configReducer,
+  detailReducer,
+  tootReducer,
+  imageViewerReducer,
+  pushNotificationReducer,
+  openStickerReducer
+  // ... other reducers
 });
 
 export type RootState = ReturnType<typeof rootReducer>

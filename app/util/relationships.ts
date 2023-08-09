@@ -1,16 +1,16 @@
 import * as Session from "../util/session";
-import * as Rest from "../services/api/Rest";
+import * as Rest    from "../services/api/Rest";
 
 export async function getRelationship(id){
-    try {
-        let { sns, domain, access_token } = await Session.getDomainAndToken();
+  try {
+    let { sns, domain, access_token } = await Session.getDomainAndToken();
 
-        const data = await Rest.getRelationships(sns, domain, access_token, [id]);
-        if (data.length < 1){
-            return { data: null, error: "Account ID: " +id+ " Not Found" };
-        }
-        return { data: data[0], error: null };
-    } catch (e){
-        return { data: null, error: e.message };
+    const data = await Rest.getRelationships(sns, domain, access_token, [id]);
+    if (data.length < 1){
+      return { data: null, error: "Account ID: " +id+ " Not Found" };
     }
+    return { data: data[0], error: null };
+  } catch (e){
+    return { data: null, error: e.message };
+  }
 }
