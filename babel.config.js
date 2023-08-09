@@ -13,6 +13,7 @@ module.exports = function(api) {
                     "http": "@tradle/react-native-http",
                     "stream": "stream-browserify",
                     "os": "react-native-os",
+                    "querystring": "querystring-browser",
                 }
             }]
         ]
